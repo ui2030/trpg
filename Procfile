@@ -1,1 +1,1 @@
-web: gunicorn gpt_server:app
+web: gunicorn -b 0.0.0.0:8000 gpt_server:app
