@@ -20,7 +20,7 @@ def ask():
             messages=[{"role": "user", "content": prompt}],
             max_tokens=150
         )
-        return jsonify(response.choices[0].message["content"].strip())
+        return jsonify({"response": response.choices[0].message["content"].strip()})
     return jsonify({"error": "No prompt provided"}), 400
 
 if __name__ == "__main__":
