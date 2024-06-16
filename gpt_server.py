@@ -16,11 +16,11 @@ def ask():
     prompt = data.get("prompt")
     if prompt:
         response = openai.ChatCompletion.create(
-            model="gpt-4o-turbo",
+            model="gpt-4-turbo",  # gpt-4-turbo 모델 사용
             messages=[{"role": "user", "content": prompt}],
             max_tokens=150
         )
-        return jsonify({"response": response.choices[0].message["content"].strip()})
+        return jsonify(response.choices[0].message["content"].strip())
     return jsonify({"error": "No prompt provided"}), 400
 
 if __name__ == "__main__":
