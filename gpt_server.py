@@ -9,14 +9,16 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 @app.route("/ask", methods=["POST"])
 def ask():
     data = request.get_json()
-    prompt = data.get("prompt")
+    if not data or "prompt" not in data:
+        return jsonify({"error": "No prompt provided"}), 400
+    
+    prompt = data["prompt"]
     if prompt:
-        response = openai.Completion.create(
-            engine="gpt-4-turbo",  # 최신 모델로 변경
-            prompt=prompt,
-            max_tokens=150
+        response = openai.ChatCompletion.create(
+            model="gpt-4-turbo",
+            messages=[{"role": "user", "content": prompt}]
         )
-        return jsonify(response.choices[0].text.strip())
+        return jsonify({"response": response.choices[0].message["content"].strip()})
     return jsonify({"error": "No prompt provided"}), 400
 
 if __name__ == "__main__":
