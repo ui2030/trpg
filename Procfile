@@ -1,1 +1,1 @@
-web: gunicorn gpt_server:app --bind 0.0.0.0:$PORT
+web: gunicorn gpt_server:app
