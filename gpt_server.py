@@ -18,5 +18,8 @@ def ask():
             prompt=prompt,
             max_tokens=150
         )
-        return jsonify(response.choices[0].text.strip())
+        return jsonify({"response": response.choices[0].text.strip()})
     return jsonify({"error": "No prompt provided"}), 400
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
