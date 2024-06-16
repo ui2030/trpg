@@ -18,12 +18,12 @@ def ask():
         return jsonify({"error": "No JSON payload provided"}), 400
     prompt = data.get("prompt")
     if prompt:
-        response = openai.ChatCompletion.create(
-            model="gpt-4o-turbo",  # gpt-4o 모델 사용
-            messages=[{"role": "user", "content": prompt}],
+        response = openai.Completion.create(
+            model="gpt-4o",  # gpt-4o 모델 사용
+            prompt=prompt,
             max_tokens=150
         )
-        return jsonify(response.choices[0].message["content"].strip())
+        return jsonify(response.choices[0].text.strip())
     return jsonify({"error": "No prompt provided"}), 400
 
 if __name__ == "__main__":
