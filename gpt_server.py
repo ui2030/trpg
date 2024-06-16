@@ -12,7 +12,7 @@ def ask():
     prompt = data.get("prompt")
     if prompt:
         response = openai.Completion.create(
-            engine="davinci",
+            engine="gpt-4-turbo",  # 최신 모델로 변경
             prompt=prompt,
             max_tokens=150
         )
