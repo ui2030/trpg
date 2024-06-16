@@ -4,21 +4,19 @@ import os
 
 app = Flask(__name__)
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPENAI_API_KEY2")
 
 @app.route("/ask", methods=["POST"])
 def ask():
     data = request.get_json()
-    if not data or "prompt" not in data:
-        return jsonify({"error": "No prompt provided"}), 400
-    
-    prompt = data["prompt"]
+    prompt = data.get("prompt")
     if prompt:
-        response = openai.ChatCompletion.create(
-            model="gpt-4-turbo",
-            messages=[{"role": "user", "content": prompt}]
+        response = openai.Completion.create(
+            engine="gpt-4-turbo",
+            prompt=prompt,
+            max_tokens=150
         )
-        return jsonify({"response": response.choices[0].message["content"].strip()})
+        return jsonify(response.choices[0].text.strip())
     return jsonify({"error": "No prompt provided"}), 400
 
 if __name__ == "__main__":
