@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import openai
 import os
+import json
 
 app = Flask(__name__)
 
@@ -21,10 +22,7 @@ def ask():
             max_tokens=150
         )
         result = response.choices[0].message["content"].strip()
-        return app.response_class(
-            response=json.dumps({"response": result}, ensure_ascii=False),
-            mimetype='application/json; charset=utf-8'
-        )
+        return jsonify({"response": result})
     return jsonify({"error": "No prompt provided"}), 400
 
 if __name__ == "__main__":
