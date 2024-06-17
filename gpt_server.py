@@ -16,7 +16,7 @@ def ask():
     prompt = data.get("prompt")
     if prompt:
         response = openai.ChatCompletion.create(
-            model="gpt-4-turbo",  # gpt-4-turbo 모델 사용
+            model="gpt-4-turbo-ko",  # gpt-4-turbo 모델 사용
             messages=[{"role": "user", "content": prompt}],
             max_tokens=150
         )
